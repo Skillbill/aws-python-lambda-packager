@@ -1,7 +1,11 @@
 FROM python:3.8.8-buster
 
+RUN DEBIAN_FRONTEND="noninteractive" apt-get update
+
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y zip
+
 WORKDIR /app
 
-RUN dpkg -i zip
+COPY package.sh /package.sh
 
-RUN zip -r /output/deployment-package.zip /app
+CMD [ "/package.sh" ]
